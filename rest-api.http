@@ -1,0 +1,121 @@
+###
+# Auth
+###
+
+### register new user and get token
+POST http://127.0.0.1:8001/register/
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### or get token for exists user
+POST 127.0.0.1:8001/login/
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+###
+# User
+###
+
+### get
+GET 127.0.0.1:8001/private/user/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### update
+PUT 127.0.0.1:8001/private/user/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "about": "XDDDD"
+}
+
+### delete
+DELETE 127.0.0.1:8001/private/user/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+
+###
+# Post
+###
+
+### get all (available query params: page, tag, query)
+GET 127.0.0.1:8001/posts/
+Content-Type: application/json
+
+### create
+POST 127.0.0.1:8001/private/user/post/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "title": "mu title2",
+  "text": "2message text2222xD",
+  "tags": [
+    {"name": "tag111"},
+    {"name": "dadada"}
+  ],
+  "isPrivate": false
+}
+
+> {% client.global.set("post_id", response.body.id); %}
+
+### get all by current user
+GET 127.0.0.1:8001/private/user/post/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+> {% client.global.set("post_id", response.body[0].id); %}
+
+### get by id
+GET 127.0.0.1:8001/private/user/post/{{post_id}}/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+> {% client.global.set("post_id", response.body.id); %}
+
+### update by id
+PUT 127.0.0.1:8001/private/user/post/{{post_id}}/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "title": "new title",
+  "text": "new text",
+  "tags": [
+    {"name": "tag111"},
+    {"name": "tag222"}
+  ]
+}
+
+### delete all
+DELETE 127.0.0.1:8001/private/user/post/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### delete by id
+DELETE 127.0.0.1:8001/private/user/post/{{post_id}}/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+
+###
+# Tag
+##
+
+### get all
+GET 127.0.0.1:8001/tags/
+Content-Type: application/json
