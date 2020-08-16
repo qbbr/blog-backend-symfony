@@ -99,10 +99,6 @@ abstract class ApiController extends AbstractController
 
     protected function renderPaginator(Paginator $paginator, array $normalizerGroups = []): array
     {
-        if ($paginator->getCurrentPage() > $paginator->getLastPage()) {
-            throw new NotFoundHttpException(sprintf('Page "%d" not found', $paginator->getCurrentPage()));
-        }
-
         $result = $paginator->getResults();
 
         return [
