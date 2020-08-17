@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,15 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/posts")
- */
 class PostController extends ApiController
 {
     /**
      * Get all posts.
      *
-     * @Route("/", methods={"get"})
+     * @Route("/posts/", methods={"get"})
      */
     public function index(
         Request $request,
@@ -39,5 +37,19 @@ class PostController extends ApiController
         $paginator = $postRepository->findLatest($page, $tag ?? null, $query);
 
         return new JsonResponse($this->renderPaginator($paginator, ['post']));
+    }
+
+    /**
+     * Get post by slug.
+     *
+     * @Route("/post/{slug}/", methods={"get"})
+     */
+    public function getBySlug(Post $post)
+    {
+        if ($post->getIsPrivate()) {
+            throw new NotFoundHttpException('Post not found!');
+        }
+
+        return new JsonResponse($this->normalize($post, ['post']));
     }
 }
