@@ -17,6 +17,7 @@ class PostControllerTest extends ApiTestCase
         $this->assertArrayHasKey('results', $responseData);
         $this->assertArrayHasKey('page', $responseData);
         $this->assertArrayHasKey('count', $responseData);
+        $this->assertArrayHasKey('pageSize', $responseData);
         $this->assertArrayHasKey('total', $responseData);
         $results = $responseData['results'];
         $this->assertIsArray($results);
