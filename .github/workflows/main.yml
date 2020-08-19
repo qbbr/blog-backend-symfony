@@ -1,28 +1,27 @@
-on:
-  push:
-    branches:
-    - master
+name: API Tests
+
+on: [push]
 
 jobs:
   build-deploy:
     name: Run Symfony Tests
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-        coverage: none
-        tools: composer, symfony
-    - name: Depends install
-      run: make install
-    - name: CS check
-      run: make cs
-    - name: Check
-      run: make check
-    - name: generate JWT keys
-      run: make generate-jwt-keys
-    - name: Run tests
-      run: make test
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: composer, symfony
+      - name: Depends install
+        run: make install
+      - name: CS check
+        run: make cs
+      - name: Check
+        run: make check
+      - name: generate JWT keys
+        run: make generate-jwt-keys
+      - name: Run tests
+        run: make test
