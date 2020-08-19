@@ -13,6 +13,7 @@ class UserControllerTest extends ApiTestCase
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
         $this->assertSame($this->authData['username'], $responseData['username']);
+        $this->assertArrayHasKey('postsCount', $responseData);
     }
 
     public function testUpdate()

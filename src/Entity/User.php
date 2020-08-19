@@ -72,6 +72,14 @@ class User implements UserInterface
     }
 
     /**
+     * @Api(groups={"user_detail"})
+     */
+    public function getPostsCount()
+    {
+        return $this->getPosts()->count();
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function prePersistCallback()
