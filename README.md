@@ -1,5 +1,7 @@
 # blog-backend-symfony
 
+![API Tests](https://github.com/qbbr/blog-backend-symfony/workflows/API%20Tests/badge.svg)
+
 Blog REST API on Symfony 5
 
 see [blog-frontend-vuejs](https://github.com/qbbr/blog-fontend-vuejs)
