@@ -3,7 +3,7 @@ name: API Tests
 on: [push]
 
 jobs:
-  build-deploy:
+  test:
     name: Run Symfony Tests
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +17,8 @@ jobs:
           tools: composer, symfony
       - name: Depends install
         run: make install
+      - name: Lint
+        run: make lint
       - name: CS check
         run: make cs
       - name: Check
