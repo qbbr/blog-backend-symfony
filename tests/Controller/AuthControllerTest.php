@@ -10,6 +10,9 @@ class AuthControllerTest extends ApiTestCase
     {
         // register
         $response = $this->request('POST', '/register/', $this->authData);
+        if (500 === $response->getStatusCode()) {
+            dump($response);
+        }
         $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
