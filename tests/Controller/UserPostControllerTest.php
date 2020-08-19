@@ -41,11 +41,17 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testAll()
     {
-        $response = $this->requestWithToken('GET', '/private/user/post/');
+        $response = $this->requestWithToken('GET', '/private/user/posts/');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
         $this->assertIsArray($responseData);
+        $this->assertArrayHasKey('results', $responseData);
+        $this->assertArrayHasKey('page', $responseData);
+        $this->assertArrayHasKey('count', $responseData);
+        $this->assertArrayHasKey('total', $responseData);
+        $results = $responseData['results'];
+        $this->assertIsArray($results);
     }
 
     public function testId()
@@ -86,7 +92,7 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testDeleteAll()
     {
-        $response = $this->requestWithToken('DELETE', '/private/user/post/');
+        $response = $this->requestWithToken('DELETE', '/private/user/posts/');
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 }

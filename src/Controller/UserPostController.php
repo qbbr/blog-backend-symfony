@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/private/user/post")
+ * @Route("/private/user")
  */
 class UserPostController extends ApiController
 {
     /**
      * Create post.
      *
-     * @Route("/", methods={"post"})
+     * @Route("/post/", methods={"post"})
      */
     public function create(Request $request, PostRepository $postRepository)
     {
@@ -36,21 +36,9 @@ class UserPostController extends ApiController
     }
 
     /**
-     * Get all user posts.
-     *
-     * @Route("/", methods={"get"})
-     */
-    public function all(PostRepository $postRepository)
-    {
-        $posts = $postRepository->findBy(['user' => $this->getUser()]);
-
-        return new JsonResponse($this->normalize($posts, ['post']));
-    }
-
-    /**
      * Get user post by id.
      *
-     * @Route("/{id}/", methods={"get"})
+     * @Route("/post/{id}/", methods={"get"})
      */
     public function id(Post $post)
     {
@@ -62,7 +50,7 @@ class UserPostController extends ApiController
     /**
      * Update user post by id.
      *
-     * @Route("/{id}/", methods={"put", "patch"})
+     * @Route("/post/{id}/", methods={"put", "patch"})
      */
     public function update(Request $request, Post $post, PostRepository $postRepository)
     {
@@ -80,7 +68,7 @@ class UserPostController extends ApiController
     /**
      * Delete user post by id.
      *
-     * @Route("/{id}/", methods={"delete"})
+     * @Route("/post/{id}/", methods={"delete"})
      */
     public function delete(Post $post, PostRepository $postRepository)
     {
@@ -91,9 +79,22 @@ class UserPostController extends ApiController
     }
 
     /**
+     * Get all user posts.
+     *
+     * @Route("/posts/", methods={"get"})
+     */
+    public function all(Request $request, PostRepository $postRepository)
+    {
+        $page = $request->query->getInt('page', 1);
+        $paginator = $postRepository->findLatest($this->getUser(), $page, $tag ?? null, null);
+
+        return new JsonResponse($this->renderPaginator($paginator, ['post']));
+    }
+
+    /**
      * Delete all user posts.
      *
-     * @Route("/", methods={"delete"})
+     * @Route("/posts/", methods={"delete"})
      */
     public function deleteAll(PostRepository $postRepository)
     {

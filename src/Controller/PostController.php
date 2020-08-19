@@ -34,7 +34,7 @@ class PostController extends ApiController
             }
         }
 
-        $paginator = $postRepository->findLatest($page, $tag ?? null, $query);
+        $paginator = $postRepository->findLatest(null, $page, $tag ?? null, $query);
 
         return new JsonResponse($this->renderPaginator($paginator, ['post']));
     }

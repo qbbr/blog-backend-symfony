@@ -49,16 +49,27 @@ class PostRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    public function findLatest(int $page = 1, Tag $tag = null, string $searchQuery = null): Paginator
+    public function findLatest(User $user = null, int $page = 1, Tag $tag = null, string $searchQuery = null): Paginator
     {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('u', 't')
             ->innerJoin('p.user', 'u')
             ->leftJoin('p.tags', 't')
-            ->where('p.isPrivate = :is_private')
             ->orderBy('p.createdAt', 'DESC')
-            ->setParameter('is_private', false)
         ;
+
+        // user posts
+        if (null !== $user) {
+            $qb
+                ->andWhere('p.user = :user')
+                ->setParameter('user', $user)
+            ;
+        } else {
+            $qb
+                ->andWhere('p.isPrivate = :is_private')
+                ->setParameter('is_private', false)
+            ;
+        }
 
         // search by tag
         if (null !== $tag) {
