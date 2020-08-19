@@ -21,10 +21,11 @@ cs-fix:
 	$(CS_FIXER) fix --diff
 
 check:
+	$(COMPOSER) check
 	$(SYMFONY) check:security
-	$(CONSOLE) doctrine:schema:validate --skip-sync -vvv --no-interaction
+	#$(COMPOSER) validate --strict
+	#$(CONSOLE) doctrine:schema:validate --skip-sync -vvv --no-interaction
 	#$(CONSOLE) debug:container --deprecations
-	$(COMPOSER) validate --strict
 
 lint:
 	$(CONSOLE) lint:yaml config --parse-tags

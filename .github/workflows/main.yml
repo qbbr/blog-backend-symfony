@@ -15,8 +15,10 @@ jobs:
       with:
         php-version: '7.4'
         coverage: none
-        tools: composer
+        tools: composer, symfony
     - name: Depends install
       run: make install
+    - name: Check
+      run: make check
     - name: Run tests
       run: make test
