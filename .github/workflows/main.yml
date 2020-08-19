@@ -19,4 +19,4 @@ jobs:
     - name: Depends install
       run: make install
     - name: Run tests
-      rune: make test
+      run: make test
