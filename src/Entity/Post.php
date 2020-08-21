@@ -53,6 +53,12 @@ class Post
     private $text;
 
     /**
+     * @ORM\Column(type="text")
+     * @Api(groups={"post"})
+     */
+    private $html;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts")
      * @ORM\JoinTable(name="posts_tags")
      * @Api(groups={"post"}, write=true)
@@ -211,6 +217,18 @@ class Post
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getHtml(): ?string
+    {
+        return $this->html;
+    }
+
+    public function setHtml(string $html): self
+    {
+        $this->html = $html;
 
         return $this;
     }

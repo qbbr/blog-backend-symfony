@@ -103,6 +103,19 @@ class UserPostController extends ApiController
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Convert markdown to html.
+     *
+     * @Route("/md2html/", methods={"post"})
+     */
+    public function md2html(Request $request)
+    {
+        $text = $this->transformJsonContent($request)->request->get('text', '');
+        $html = (new \Parsedown())->text($text);
+
+        return new JsonResponse(['html' => $html]);
+    }
+
     private function processTags(Request $request, Post $post)
     {
         $tagRepository = $this->getDoctrine()->getRepository(Tag::class);

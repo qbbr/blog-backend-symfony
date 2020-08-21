@@ -48,5 +48,6 @@ class DoctrinePostSubscriber implements EventSubscriber
         }
 
         $entity->setSlug($this->slugger->slug($entity->getTitle()));
+        $entity->setHtml((new \Parsedown())->text($entity->getText()));
     }
 }
