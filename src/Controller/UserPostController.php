@@ -44,7 +44,7 @@ class UserPostController extends ApiController
     {
         $this->denyAccessUnlessGranted(PostVoter::VIEW, $post);
 
-        return new JsonResponse($this->normalize($post, ['post']));
+        return new JsonResponse($this->normalize($post, ['post', 'post_text', 'post_html']));
     }
 
     /**
@@ -88,7 +88,7 @@ class UserPostController extends ApiController
         $page = $request->query->getInt('page', 1);
         $paginator = $postRepository->findLatest($this->getUser(), $page, $tag ?? null, null);
 
-        return new JsonResponse($this->renderPaginator($paginator, ['post']));
+        return new JsonResponse($this->renderPaginator($paginator, ['post', 'post_text', 'post_html']));
     }
 
     /**

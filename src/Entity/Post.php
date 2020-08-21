@@ -48,13 +48,13 @@ class Post
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
-     * @Api(groups={"post"}, write=true)
+     * @Api(groups={"post_text"}, write=true)
      */
     private $text;
 
     /**
      * @ORM\Column(type="text")
-     * @Api(groups={"post"})
+     * @Api(groups={"post_html"})
      */
     private $html;
 

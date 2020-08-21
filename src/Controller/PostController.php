@@ -36,7 +36,7 @@ class PostController extends ApiController
 
         $paginator = $postRepository->findLatest(null, $page, $tag ?? null, $query);
 
-        return new JsonResponse($this->renderPaginator($paginator, ['post']));
+        return new JsonResponse($this->renderPaginator($paginator, ['post', 'post_html']));
     }
 
     /**
@@ -50,6 +50,6 @@ class PostController extends ApiController
             throw new NotFoundHttpException('Post not found!');
         }
 
-        return new JsonResponse($this->normalize($post, ['post']));
+        return new JsonResponse($this->normalize($post, ['post', 'post_html']));
     }
 }
