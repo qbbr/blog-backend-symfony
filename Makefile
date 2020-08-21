@@ -48,6 +48,6 @@ test:
 	$(eval export sed 's/=.*//' .env.test)
 	$(CONSOLE) doctrine:database:drop --force
 	$(CONSOLE) doctrine:database:create
-	$(CONSOLE) doctrine:schema:update --force
+	$(CONSOLE) doctrine:schema:create
 	$(CONSOLE) doctrine:fixtures:load --no-interaction
 	$(PHPUNIT)
