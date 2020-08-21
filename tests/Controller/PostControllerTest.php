@@ -41,7 +41,7 @@ class PostControllerTest extends ApiTestCase
         $this->assertArrayHasKey('user', $postData);
         $this->assertArrayHasKey('title', $postData);
         $this->assertArrayHasKey('slug', $postData);
-        $this->assertArrayHasKey('text', $postData);
+        $this->assertArrayHasKey('html', $postData);
         $this->assertArrayHasKey('tags', $postData);
         $this->assertArrayHasKey('isPrivate', $postData);
         $this->assertArrayHasKey('createdAt', $postData);

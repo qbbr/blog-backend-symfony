@@ -65,6 +65,7 @@ class UserPostControllerTest extends ApiTestCase
         $this->assertSame($this->postData['text'], $postData['text']);
         $this->assertSame($this->postData['tags'], $postData['tags']);
         $this->assertSame($this->postData['isPrivate'], $postData['isPrivate']);
+        $this->assertArrayHasKey('html', $postData);
     }
 
     public function testUpdate()
@@ -83,6 +84,7 @@ class UserPostControllerTest extends ApiTestCase
         $this->assertSame($this->newPostData['text'], $postData['text']);
         $this->assertSame($this->newPostData['tags'], $postData['tags']);
         $this->assertSame($this->newPostData['isPrivate'], $postData['isPrivate']);
+        $this->assertArrayHasKey('html', $postData);
     }
 
     public function testDelete()
