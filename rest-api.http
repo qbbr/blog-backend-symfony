@@ -74,7 +74,7 @@ Authorization: Bearer {{auth_token}}
 > {% client.global.set("post_id", response.body.id); %}
 
 ### get all by current user
-GET 127.0.0.1:8001/private/user/post/
+GET 127.0.0.1:8001/private/user/posts/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
@@ -102,7 +102,7 @@ Authorization: Bearer {{auth_token}}
 }
 
 ### delete all
-DELETE 127.0.0.1:8001/private/user/post/
+DELETE 127.0.0.1:8001/private/user/posts/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
