@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\User;
 
+use App\Tests\Controller\ApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserControllerTest extends ApiTestCase
+class ProfileControllerTest extends ApiTestCase
 {
     public function testIndex()
     {
-        $response = $this->requestWithToken('GET', '/private/user/');
+        $response = $this->requestWithToken('GET', '/user/profile/');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
@@ -19,13 +20,13 @@ class UserControllerTest extends ApiTestCase
     public function testUpdate()
     {
         $data = ['about' => 'my self text'];
-        $response = $this->requestWithToken('PUT', '/private/user/', $data);
+        $response = $this->requestWithToken('PUT', '/user/profile/', $data);
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
 //    public function testDelete()
 //    {
-//        $response = $this->requestWithToken('DELETE', '/private/user/');
+//        $response = $this->requestWithToken('DELETE', '/user/profile/');
 //        $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
 //    }
 }

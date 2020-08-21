@@ -25,16 +25,16 @@ Content-Type: application/json
 > {% client.global.set("auth_token", response.body.token); %}
 
 ###
-# User
+# User Profile
 ###
 
 ### get
-GET 127.0.0.1:8001/private/user/
+GET 127.0.0.1:8001/user/profile/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 ### update
-PUT 127.0.0.1:8001/private/user/
+PUT 127.0.0.1:8001/user/profile/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
@@ -43,7 +43,7 @@ Authorization: Bearer {{auth_token}}
 }
 
 ### delete
-DELETE 127.0.0.1:8001/private/user/
+DELETE 127.0.0.1:8001/user/profile/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
@@ -56,8 +56,26 @@ Authorization: Bearer {{auth_token}}
 GET 127.0.0.1:8001/posts/
 Content-Type: application/json
 
+### get by slug
+GET 127.0.0.1:8001/post/slug/
+Content-Type: application/json
+
+
+###
+# Tag
+##
+
+### get all
+GET 127.0.0.1:8001/tags/
+Content-Type: application/json
+
+
+###
+# User Post
+###
+
 ### create
-POST 127.0.0.1:8001/private/user/post/
+POST 127.0.0.1:8001/user/post/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
@@ -74,21 +92,21 @@ Authorization: Bearer {{auth_token}}
 > {% client.global.set("post_id", response.body.id); %}
 
 ### get all by current user
-GET 127.0.0.1:8001/private/user/posts/
+GET 127.0.0.1:8001/user/posts/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
-> {% client.global.set("post_id", response.body[0].id); %}
+> {% client.global.set("post_id", response.body.results[0].id); %}
 
 ### get by id
-GET 127.0.0.1:8001/private/user/post/{{post_id}}/
+GET 127.0.0.1:8001/user/post/{{post_id}}/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 > {% client.global.set("post_id", response.body.id); %}
 
 ### update by id
-PUT 127.0.0.1:8001/private/user/post/{{post_id}}/
+PUT 127.0.0.1:8001/user/post/{{post_id}}/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
@@ -102,28 +120,20 @@ Authorization: Bearer {{auth_token}}
 }
 
 ### delete all
-DELETE 127.0.0.1:8001/private/user/posts/
+DELETE 127.0.0.1:8001/user/posts/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 ### delete by id
-DELETE 127.0.0.1:8001/private/user/post/{{post_id}}/
+DELETE 127.0.0.1:8001/user/post/{{post_id}/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 ### markdown to html
-POST 127.0.0.1:8001/private/user/md2html/
+POST 127.0.0.1:8001/user/post/md2html/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
     "text": "# asd\n test"
 }
-
-###
-# Tag
-##
-
-### get all
-GET 127.0.0.1:8001/tags/
-Content-Type: application/json

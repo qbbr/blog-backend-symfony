@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Controller\User;
 
+use App\Tests\Controller\ApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserPostControllerTest extends ApiTestCase
+class PostControllerTest extends ApiTestCase
 {
     private $postData = [
         'title' => 'my post title 1',
@@ -30,7 +31,7 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testCreate()
     {
-        $response = $this->requestWithToken('POST', '/private/user/post/', $this->postData);
+        $response = $this->requestWithToken('POST', '/user/post/', $this->postData);
         $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
@@ -41,7 +42,7 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testAll()
     {
-        $response = $this->requestWithToken('GET', '/private/user/posts/');
+        $response = $this->requestWithToken('GET', '/user/posts/');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $responseData = $this->getJsonContent($response);
@@ -57,7 +58,7 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testId()
     {
-        $response = $this->requestWithToken('GET', '/private/user/post/'.self::$postId.'/');
+        $response = $this->requestWithToken('GET', '/user/post/'.self::$postId.'/');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $postData = $this->getJsonContent($response);
@@ -70,13 +71,13 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testUpdate()
     {
-        $response = $this->requestWithToken('PUT', '/private/user/post/'.self::$postId.'/', $this->newPostData);
+        $response = $this->requestWithToken('PUT', '/user/post/'.self::$postId.'/', $this->newPostData);
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
     public function testIdNewData()
     {
-        $response = $this->requestWithToken('GET', '/private/user/post/'.self::$postId.'/');
+        $response = $this->requestWithToken('GET', '/user/post/'.self::$postId.'/');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $postData = $this->getJsonContent($response);
@@ -89,13 +90,24 @@ class UserPostControllerTest extends ApiTestCase
 
     public function testDelete()
     {
-        $response = $this->requestWithToken('DELETE', '/private/user/post/'.self::$postId.'/');
+        $response = $this->requestWithToken('DELETE', '/user/post/'.self::$postId.'/');
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
     public function testDeleteAll()
     {
-        $response = $this->requestWithToken('DELETE', '/private/user/posts/');
+        $response = $this->requestWithToken('DELETE', '/user/posts/');
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+    }
+
+    public function testMd2html()
+    {
+        $response = $this->requestWithToken('POST', '/user/post/md2html/', [
+            'text' => 'asd',
+        ]);
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $data = $this->getJsonContent($response);
+        $this->assertArrayHasKey('html', $data);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
+use App\Controller\ApiController;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\PostRepository;
@@ -12,9 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/private/user")
+ * @Route("/user")
  */
-class UserPostController extends ApiController
+class PostController extends ApiController
 {
     /**
      * Create post.
@@ -106,7 +107,7 @@ class UserPostController extends ApiController
     /**
      * Convert markdown to html.
      *
-     * @Route("/md2html/", methods={"post"})
+     * @Route("/post/md2html/", methods={"post"})
      */
     public function md2html(Request $request)
     {

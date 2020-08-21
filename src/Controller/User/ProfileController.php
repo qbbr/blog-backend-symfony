@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
+use App\Controller\ApiController;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/private/user")
+ * @route("/user/profile")
  */
-class UserController extends ApiController
+class ProfileController extends ApiController
 {
     /**
      * Get user data.
