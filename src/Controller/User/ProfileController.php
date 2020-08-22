@@ -47,7 +47,7 @@ class ProfileController extends ApiController
      *
      * @Route("/", methods={"delete"})
      */
-    public function delete(Request $request, UserRepository $userRepository)
+    public function delete(UserRepository $userRepository)
     {
         $user = $this->getUser();
         $userRepository->remove($user);

@@ -14,10 +14,8 @@ class Api extends Groups
 {
     /**
      * Property can be write from API request.
-     *
-     * @var bool
      */
-    public $write;
+    public bool $write;
 
     public function __construct(array $data)
     {

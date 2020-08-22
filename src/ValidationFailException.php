@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ValidationFailException extends HttpException
 {
-    private $errors = [];
+    private array $errors;
 
     public function __construct($errors, \Throwable $previous = null)
     {

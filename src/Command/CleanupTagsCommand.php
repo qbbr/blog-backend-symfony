@@ -10,11 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CleanupTagsCommand extends Command
 {
     protected static $defaultName = 'app:cleanup-tags';
-
-    /**
-     * @var TagRepository
-     */
-    private $tagRepository;
+    private TagRepository $tagRepository;
 
     public function __construct(TagRepository $tagRepository)
     {

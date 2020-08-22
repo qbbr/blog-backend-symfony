@@ -21,10 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class ApiController extends AbstractController
 {
-    /**
-     * @var ValidatorInterface
-     */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     public function __construct(
         ValidatorInterface $validator

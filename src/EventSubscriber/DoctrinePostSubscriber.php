@@ -10,10 +10,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DoctrinePostSubscriber implements EventSubscriber
 {
-    /**
-     * @var SluggerInterface
-     */
-    private $slugger;
+    private SluggerInterface $slugger;
 
     public function __construct(SluggerInterface $slugger)
     {

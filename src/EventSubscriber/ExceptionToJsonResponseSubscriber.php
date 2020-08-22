@@ -34,7 +34,7 @@ class ExceptionToJsonResponseSubscriber implements EventSubscriberInterface
 
         if ('prod' !== $event->getRequest()->server->get('APP_ENV')) {
             // TODO: Do not use this in production! This will potentially leak sensitive information.
-//            $data['trace'] = $exception->getTrace();
+            $data['trace'] = $exception->getTrace();
         }
 
         $response = new JsonResponse($data, $statusCode);
