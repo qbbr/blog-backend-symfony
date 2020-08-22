@@ -25,6 +25,8 @@ class PostController extends ApiController
         $page = $request->query->getInt('page', 1);
         $tagName = $request->query->get('tag');
         $query = $request->query->get('query');
+        $sort = $request->query->get('sort');
+        $order = $request->query->get('order');
 
         if (null !== $tagName) {
             $tag = $tagRepository->findOneBy(['name' => $tagName]);
@@ -34,7 +36,7 @@ class PostController extends ApiController
             }
         }
 
-        $paginator = $postRepository->findLatest(null, $page, $tag ?? null, $query);
+        $paginator = $postRepository->findLatest(null, $page, $tag ?? null, $query, $sort, $order);
 
         return new JsonResponse($this->renderPaginator($paginator, ['post', 'post_html']));
     }

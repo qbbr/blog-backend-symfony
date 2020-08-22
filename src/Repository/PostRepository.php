@@ -17,6 +17,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
+    private const ORDER_DESC = 'DESC';
+    private const ORDER_ASC = 'ASC';
+
+    private array $availableSortList = [
+        'created' => 'p.createdAt', // default sort
+        'title' => 'p.title',
+    ];
+
+    private array $availableSortOrderList = [
+        self::ORDER_DESC, // default order
+        self::ORDER_ASC,
+    ];
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
@@ -49,13 +62,12 @@ class PostRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    public function findLatest(User $user = null, int $page = 1, Tag $tag = null, string $searchQuery = null): Paginator
+    public function findLatest(User $user = null, int $page = 1, Tag $tag = null, string $searchQuery = null, string $sort = null, string $order = null): Paginator
     {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('u', 't')
             ->innerJoin('p.user', 'u')
             ->leftJoin('p.tags', 't')
-            ->orderBy('p.createdAt', 'DESC')
         ;
 
         // user posts
@@ -96,6 +108,10 @@ class PostRepository extends ServiceEntityRepository
             }
         }
 
+        // sort
+        list($sort, $order) = $this->getSort($sort, $order);
+        $qb->orderBy($sort, $order);
+
         return (new Paginator($qb))->paginate($page);
     }
 
@@ -107,5 +123,20 @@ class PostRepository extends ServiceEntityRepository
         return array_filter($terms, function ($term) {
             return 2 <= mb_strlen($term);
         });
+    }
+
+    private function getSort(string $sort = null, string $order = null): array
+    {
+        $sort = $this->availableSortList[$sort] ?? current($this->availableSortList);
+
+        if (null !== $order) {
+            $order = mb_strtoupper($order);
+        }
+
+        if (!\in_array($order, $this->availableSortOrderList, true)) {
+            $order = self::ORDER_DESC;
+        }
+
+        return [$sort, $order];
     }
 }

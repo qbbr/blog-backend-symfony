@@ -52,7 +52,7 @@ Authorization: Bearer {{auth_token}}
 # Post
 ###
 
-### get all (available query params: page, tag, query)
+### get all (available query params: page, tag, query, sort[create|title], order[desc|asc])
 GET 127.0.0.1:8001/posts/
 Content-Type: application/json
 
