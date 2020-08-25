@@ -55,5 +55,6 @@ class AuthController extends ApiController
      */
     public function login()
     {
+        return new JsonResponse(['code' => 401, 'message' => 'Invalid credentials.'], 401);
     }
 }

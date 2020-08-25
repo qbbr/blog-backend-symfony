@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Exceptions;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -12,7 +12,7 @@ class ValidationFailException extends HttpException
     public function __construct($errors, \Throwable $previous = null)
     {
         $this->errors = $errors;
-        parent::__construct(Response::HTTP_UNPROCESSABLE_ENTITY, 'Validation failed', $previous);
+        parent::__construct(Response::HTTP_UNPROCESSABLE_ENTITY, 'Validation failed.', $previous);
     }
 
     public function getErrors(): array

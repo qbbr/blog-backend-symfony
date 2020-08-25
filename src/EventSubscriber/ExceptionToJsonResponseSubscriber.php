@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use App\ValidationFailException;
+use App\Exceptions\ValidationFailException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -22,10 +22,8 @@ class ExceptionToJsonResponseSubscriber implements EventSubscriberInterface
         $exception = $event->getThrowable();
         $statusCode = $this->getStatusCodeFromException($exception);
         $data = [
-            'type' => $this->getErrorTypeFromException($exception),
-            'title' => 'An error occurred',
-            'status' => $statusCode,
-            'detail' => $exception->getMessage(),
+            'code' => $statusCode,
+            'message' => $exception->getMessage(),
         ];
 
         if ($exception instanceof ValidationFailException) {
@@ -34,6 +32,9 @@ class ExceptionToJsonResponseSubscriber implements EventSubscriberInterface
 
         if ('prod' !== $event->getRequest()->server->get('APP_ENV')) {
             // TODO: Do not use this in production! This will potentially leak sensitive information.
+            $data['type'] = $this->getErrorTypeFromException($exception);
+            $data['file'] = $exception->getFile();
+            $data['line'] = $exception->getLine();
             $data['trace'] = $exception->getTrace();
         }
 

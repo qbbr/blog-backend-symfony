@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Annotation\Api;
+use App\Exceptions\ValidationFailException;
 use App\Pagination\Paginator;
-use App\ValidationFailException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

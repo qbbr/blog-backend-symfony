@@ -28,9 +28,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\NotBlank
-     * @Assert\Length(max="180")
+     * @Assert\Length(min="4", max="80")
      * @Api(groups={"user_detail", "post"})
      */
     private $username;
@@ -42,9 +42,9 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Length(min="6")
+     * @Assert\Length(min="6", max="255")
      * Assert\NotCompromisedPassword // require symfony/http-client
      */
     private $password;
