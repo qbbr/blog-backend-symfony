@@ -23,7 +23,7 @@ jobs:
         run: make cs
       - name: Check
         run: make check
-      - name: generate JWT keys
+      - name: Generate JWT keys
         run: make generate-jwt-keys
       - name: Run tests
         run: make test
