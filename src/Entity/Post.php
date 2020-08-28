@@ -34,7 +34,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max=255)
+     * @Assert\Length(min=2, max=255)
      * @Api(groups={"post"}, write=true)
      */
     private $title;

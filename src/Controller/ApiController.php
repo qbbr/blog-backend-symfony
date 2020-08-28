@@ -100,7 +100,6 @@ abstract class ApiController extends AbstractController
         return [
             'results' => $this->normalize($result, $normalizerGroups),
             'page' => $paginator->getCurrentPage(),
-            'count' => \count($result),
             'pageSize' => $paginator->getPageSize(),
             'total' => $paginator->getNumResults(),
         ];
