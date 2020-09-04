@@ -16,6 +16,7 @@ see [blog-frontend-vuejs](https://github.com/qbbr/blog-fontend-vuejs)
 ## run
 
 ```
+make install
 make generate-jwt-keys
 make init-db
 symfony server:start

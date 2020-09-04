@@ -12,7 +12,6 @@ export $(shell sed 's/=.*//' .env)
 install: export COMPOSER_MEMORY_LIMIT=-1
 install:
 	$(COMPOSER) install
-	$(PHPUNIT) install
 
 cs:
 	$(CS_FIXER) fix --diff --dry-run
