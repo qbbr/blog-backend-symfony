@@ -125,7 +125,7 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 ### delete by id
-DELETE 127.0.0.1:8001/user/post/{{post_id}/
+DELETE 127.0.0.1:8001/user/post/{{post_id}}/
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
