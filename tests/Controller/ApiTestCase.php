@@ -2,15 +2,16 @@
 
 namespace App\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class ApiTestCase extends WebTestCase
 {
-    private $client;
-    private $token;
+    private ?KernelBrowser $client = null;
+    private string $token;
 
-    protected $authData = [
+    protected array $authData = [
         'username' => 'testuser1',
         'password' => 'testpassword1',
     ];

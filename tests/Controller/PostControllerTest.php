@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostControllerTest extends ApiTestCase
 {
-    private static $postSlug = '';
+    private static string $postSlug = '';
 
     public function testIndex()
     {

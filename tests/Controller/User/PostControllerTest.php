@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostControllerTest extends ApiTestCase
 {
-    private $postData = [
+    private array $postData = [
         'title' => 'my post title 1',
         'text' => 'my post long text',
         'tags' => [
@@ -17,7 +17,7 @@ class PostControllerTest extends ApiTestCase
         'isPrivate' => false,
     ];
 
-    private $newPostData = [
+    private array $newPostData = [
         'title' => 'new my post title 1',
         'text' => 'new my post long text',
         'tags' => [
@@ -27,7 +27,7 @@ class PostControllerTest extends ApiTestCase
         'isPrivate' => false,
     ];
 
-    private static $postId;
+    private static int $postId;
 
     public function testCreate()
     {

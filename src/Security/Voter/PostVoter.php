@@ -30,10 +30,8 @@ class PostVoter extends Voter
         switch ($attribute) {
             case self::VIEW:
                 return $this->canView($subject, $user);
-                break;
             case self::EDIT:
                 return $this->canEdit($subject, $user);
-                break;
         }
 
         return false;

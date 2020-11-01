@@ -14,23 +14,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
-    private $users = [];
-    private $tags = [];
+    private array $users = [];
+    private array $tags = [];
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
-    /**
-     * @var SluggerInterface
-     */
-    private $slugger;
+    private SluggerInterface $slugger;
 
-    /**
-     * @var Generator
-     */
-    private $faker;
+    private Generator $faker;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, SluggerInterface $slugger)
     {
