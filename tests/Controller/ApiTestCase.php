@@ -16,7 +16,7 @@ abstract class ApiTestCase extends WebTestCase
         'password' => 'testpassword1',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (null === $this->client) {
             $this->client = static::createClient();
