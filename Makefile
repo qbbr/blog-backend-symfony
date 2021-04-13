@@ -28,7 +28,7 @@ check:
 
 lint:
 	$(CONSOLE) lint:yaml config --parse-tags
-	$(CONSOLE) lint:container
+	#$(CONSOLE) lint:container
 
 generate-jwt-keys:
 	mkdir -p config/jwt
