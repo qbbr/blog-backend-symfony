@@ -12,17 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/user")
- */
+#[Route('/user')]
 class PostController extends ApiController
 {
     /**
      * Create post.
-     *
-     * @Route("/post/", methods={"post"})
      */
-    public function create(Request $request, PostRepository $postRepository)
+    #[Route('/post/', methods: ['POST'])]
+    public function create(Request $request, PostRepository $postRepository): JsonResponse
     {
         $post = new Post();
         $post->setUser($this->getUser());
@@ -38,10 +35,9 @@ class PostController extends ApiController
 
     /**
      * Get user post by id.
-     *
-     * @Route("/post/{id}/", methods={"get"})
      */
-    public function id(Post $post)
+    #[Route('/post/{id}/', methods: ['GET'])]
+    public function id(Post $post): JsonResponse
     {
         $this->denyAccessUnlessGranted(PostVoter::VIEW, $post);
 
@@ -50,10 +46,9 @@ class PostController extends ApiController
 
     /**
      * Update user post by id.
-     *
-     * @Route("/post/{id}/", methods={"put", "patch"})
      */
-    public function update(Request $request, Post $post, PostRepository $postRepository)
+    #[Route('/post/{id}/', methods: ['PUT', 'PATCH'])]
+    public function update(Request $request, Post $post, PostRepository $postRepository): JsonResponse
     {
         $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
 
@@ -68,10 +63,9 @@ class PostController extends ApiController
 
     /**
      * Delete user post by id.
-     *
-     * @Route("/post/{id}/", methods={"delete"})
      */
-    public function delete(Post $post, PostRepository $postRepository)
+    #[Route('/post/{id}/', methods: ['DELETE'])]
+    public function delete(Post $post, PostRepository $postRepository): JsonResponse
     {
         $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
         $postRepository->remove($post);
@@ -81,23 +75,21 @@ class PostController extends ApiController
 
     /**
      * Get all user posts.
-     *
-     * @Route("/posts/", methods={"get"})
      */
-    public function all(Request $request, PostRepository $postRepository)
+    #[Route('/posts/', methods: ['GET'])]
+    public function all(Request $request, PostRepository $postRepository): JsonResponse
     {
         $page = $request->query->getInt('page', 1);
-        $paginator = $postRepository->findLatest($this->getUser(), $page, $tag ?? null, null);
+        $paginator = $postRepository->findLatest($this->getUser(), $page, $tag ?? null);
 
         return new JsonResponse($this->renderPaginator($paginator, ['post', 'post_text', 'post_html']));
     }
 
     /**
      * Delete all user posts.
-     *
-     * @Route("/posts/", methods={"delete"})
      */
-    public function deleteAll(PostRepository $postRepository)
+    #[Route('/posts/', methods: ['DELETE'])]
+    public function deleteAll(PostRepository $postRepository): JsonResponse
     {
         $postRepository->removeAll($this->getUser());
 
@@ -106,10 +98,9 @@ class PostController extends ApiController
 
     /**
      * Convert markdown to html.
-     *
-     * @Route("/post/md2html/", methods={"post"})
      */
-    public function md2html(Request $request)
+    #[Route('/post/md2html/', methods: ['POST'])]
+    public function md2html(Request $request): JsonResponse
     {
         $text = $this->transformJsonContent($request)->request->get('text', '');
         $html = (new \Parsedown())->text($text);
@@ -117,7 +108,7 @@ class PostController extends ApiController
         return new JsonResponse(['html' => $html]);
     }
 
-    private function processTags(Request $request, Post $post)
+    private function processTags(Request $request, Post $post): void
     {
         $tagRepository = $this->getDoctrine()->getRepository(Tag::class);
         $tags = $request->request->get('tags');

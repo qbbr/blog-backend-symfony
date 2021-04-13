@@ -17,7 +17,7 @@ class DoctrinePostSubscriber implements EventSubscriber
         $this->slugger = $slugger;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::prePersist,
@@ -25,17 +25,17 @@ class DoctrinePostSubscriber implements EventSubscriber
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $this->setSlug($args);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $this->setSlug($args);
     }
 
-    private function setSlug(LifecycleEventArgs $args)
+    private function setSlug(LifecycleEventArgs $args): void
     {
         /** @var Post $entity */
         $entity = $args->getObject();

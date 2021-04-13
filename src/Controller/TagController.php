@@ -6,15 +6,10 @@ use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/tags")
- */
 class TagController extends ApiController
 {
-    /**
-     * @Route("/", methods={"get"})
-     */
-    public function index(TagRepository $tagRepository)
+    #[Route('/tags/', methods: ['GET'])]
+    public function index(TagRepository $tagRepository): JsonResponse
     {
         $tags = $tagRepository->findAll();
 

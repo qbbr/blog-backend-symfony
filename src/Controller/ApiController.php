@@ -6,6 +6,7 @@ use App\Annotation\Api;
 use App\Exceptions\ValidationFailException;
 use App\Pagination\Paginator;
 use Doctrine\Common\Annotations\AnnotationReader;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -93,6 +94,7 @@ abstract class ApiController extends AbstractController
         return $serializer->normalize($object, null, ['groups' => $groups]);
     }
 
+    #[ArrayShape(['results' => 'mixed', 'page' => 'int', 'pageSize' => 'int', 'total' => 'int'])]
     protected function renderPaginator(Paginator $paginator, array $normalizerGroups = []): array
     {
         $result = $paginator->getResults();

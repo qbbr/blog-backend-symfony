@@ -20,15 +20,14 @@ class AuthController extends ApiController
      * {"username": "<username>", "password": "<password>"}
      * Output:
      * {"token": "<JWT>"}
-     *
-     * @Route("/register/", methods={"post"})
      */
+    #[Route('/register/', methods: ['POST'])]
     public function register(
         Request $request,
         UserRepository $userRepository,
         UserPasswordEncoderInterface $encoder,
         JWTTokenManagerInterface $JWTTokenManager
-    ) {
+    ): JsonResponse {
         $request = $this->transformJsonContent($request);
         $username = $request->get('username');
         $password = $request->get('password');
@@ -50,10 +49,9 @@ class AuthController extends ApiController
      * {"username": "<username>", "password": "<password>"}
      * Output:
      * {"token": "<JWT>"}
-     *
-     * @Route("/login/", methods={"post"})
      */
-    public function login()
+    #[Route('/login/', methods: ['POST'])]
+    public function login(): JsonResponse
     {
         return new JsonResponse(['code' => 401, 'message' => 'Invalid credentials.'], 401);
     }

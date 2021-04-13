@@ -9,29 +9,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @route("/user/profile")
- */
+#[Route('/user/profile')]
 class ProfileController extends ApiController
 {
     /**
      * Get user data.
-     *
-     * @Route("/", methods={"get"})
      */
-    public function index()
+    #[Route('/', methods: ['GET'])]
+    public function index(): JsonResponse
     {
         $user = $this->getUser();
+
+        if (!$user) {
+            return new JsonResponse([], Response::HTTP_UNAUTHORIZED);
+        }
 
         return new JsonResponse($this->normalize($user, ['user_detail']));
     }
 
     /**
      * Update user data.
-     *
-     * @Route("/", methods={"put", "patch"})
      */
-    public function update(Request $request, UserRepository $userRepository)
+    #[Route('/', methods: ['PUT', 'PATCH'])]
+    public function update(Request $request, UserRepository $userRepository): JsonResponse
     {
         $user = $this->getUser();
         $request = $this->transformJsonContent($request);
@@ -44,10 +44,9 @@ class ProfileController extends ApiController
 
     /**
      * Delete user.
-     *
-     * @Route("/", methods={"delete"})
      */
-    public function delete(UserRepository $userRepository)
+    #[Route('/', methods: ['DELETE'])]
+    public function delete(UserRepository $userRepository): JsonResponse
     {
         $user = $this->getUser();
         $userRepository->remove($user);

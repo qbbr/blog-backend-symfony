@@ -49,4 +49,4 @@ test:
 	$(CONSOLE) doctrine:database:create
 	$(CONSOLE) doctrine:schema:create
 	$(CONSOLE) doctrine:fixtures:load --no-interaction
-	$(PHPUNIT)
+	$(PHPUNIT) -v

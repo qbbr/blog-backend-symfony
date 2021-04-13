@@ -8,7 +8,7 @@ see [blog-frontend-vuejs](https://github.com/qbbr/blog-fontend-vuejs)
 
 ## depends
 
- * [php 7.4](https://www.php.net/)
+ * [php 8](https://www.php.net/)
  * [composer](https://getcomposer.org/download/)
  * [symfony cli](https://symfony.com/download)
  * [openssl](https://www.openssl.org/) for JWT

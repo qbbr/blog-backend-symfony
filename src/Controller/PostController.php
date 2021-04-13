@@ -14,14 +14,13 @@ class PostController extends ApiController
 {
     /**
      * Get all posts.
-     *
-     * @Route("/posts/", methods={"get"})
      */
+    #[Route('/posts/', methods: ['GET'])]
     public function index(
         Request $request,
         PostRepository $postRepository,
         TagRepository $tagRepository
-    ) {
+    ): JsonResponse {
         $page = $request->query->getInt('page', 1);
         $tagName = $request->query->get('tag');
         $query = $request->query->get('query');
@@ -43,10 +42,9 @@ class PostController extends ApiController
 
     /**
      * Get post by slug.
-     *
-     * @Route("/post/{slug}/", methods={"get"})
      */
-    public function getBySlug(Post $post)
+    #[Route('/post/{slug}/', methods: ['GET'])]
+    public function getBySlug(Post $post): JsonResponse
     {
         if ($post->getIsPrivate()) {
             throw new NotFoundHttpException('Post not found!');
