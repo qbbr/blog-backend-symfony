@@ -11,7 +11,7 @@ $finder = PhpCsFixer\Finder::create()
     ->notPath('public/index.php')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,

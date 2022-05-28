@@ -32,7 +32,6 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "friendsofphp/php-cs-fixer": "^2.18",
         "fzaninotto/faker": "^1.9",
         "symfony/browser-kit": "5.2.*",
         "symfony/maker-bundle": "^1.30",
@@ -44,7 +43,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {
