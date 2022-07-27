@@ -41,7 +41,6 @@ init-db:
 
 #test: export SYMFONY_PHPUNIT_DIR=./bin/.phpunit
 #test: export SYMFONY_DEPRECATIONS_HELPER=disabled
-test: export SYMFONY_DEPRECATIONS_HELPER=999999
 test:
 	$(eval include .env.test)
 	$(eval export sed 's/=.*//' .env.test)
