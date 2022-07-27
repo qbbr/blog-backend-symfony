@@ -87,7 +87,7 @@ abstract class ApiController extends AbstractController
     {
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $serializer = new Serializer([
-            new DateTimeNormalizer(/*[DateTimeNormalizer::FORMAT_KEY => 'H:i:s d.m.Y']*/),
+            new DateTimeNormalizer(/* [DateTimeNormalizer::FORMAT_KEY => 'H:i:s d.m.Y'] */),
             new ObjectNormalizer($classMetadataFactory),
         ]);
 
